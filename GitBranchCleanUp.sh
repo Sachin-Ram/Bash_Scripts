@@ -6,16 +6,6 @@
 
 baseBranch="main"
 
-
-while true;do
-    main
-    if["$breakloop"==1];then
-        break
-    fi
-done
-
-
-
 main() 
 {
     echo "Welcome to Git"
@@ -30,7 +20,7 @@ main()
 
         1) 
             echo "Listing all the exisitng branches..."
-            braches
+            branches
             ;;
         2)
             echo "Removing all the merged Branched with $baseBranch..."
@@ -51,7 +41,7 @@ main()
 branches()
 {
     sleep 1
-    git branch | awk `{print $1 == "*" ? $2:$1 }`
+    git branch | awk '{print $1 == "*" ? $2:$1 }'
 }
 
 removeBranches()
@@ -60,3 +50,13 @@ removeBranches()
 
     git branch --merged "$baseBranch"| grep -v '^\*' | grep -v "$baseBranch\$" | xargs -n 1 git branch -d
 }
+
+while true;do
+    main
+    if [ "$breakloop" == 1 ]; then
+        break
+    fi
+done
+
+
+
